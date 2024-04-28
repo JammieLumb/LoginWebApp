@@ -1,0 +1,67 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Student Dashboard - Hull Engage";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col">
+            <h2>Welcome, Student!</h2>
+            <p class="lead">You are assigned to Personal Supervisor ID: @ViewBag.PersonalSupervisorId</p>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col">
+            <h3>Lectures:</h3>
+            <ul class="list-group">
+                @foreach (var lecture in ViewBag.Lectures)
+                {
+                    <li class="list-group-item">
+                        <span>@lecture.Title</span> - @lecture.Description
+                        @if (ViewBag.ScannedLectures.Contains(lecture.Id))
+                        {
+                            <a href="@Url.Action("Index", "ChatRoom", new { chatRoomId = lecture.ChatRoomId })" class="btn btn-primary float-right">Join Chat Room</a>
+                        }
+                        else
+                        {
+                            <span class="text-danger ml-3">Please scan in to attend this lecture</span>
+                            <form class="d-inline-block" method="post" action="@Url.Action("ScanIn", "Dashboard")">
+                                <input type="hidden" name="studentId" value="@ViewBag.StudentId" />
+                                <input type="hidden" name="sessionId" value="@lecture.Id" />
+                                <button type="submit" class="btn btn-danger ml-2">Scan In</button>
+                            </form>
+                        }
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col">
+            <h3>Labs:</h3>
+            <ul class="list-group">
+                @foreach (var lab in ViewBag.Labs)
+                {
+                    <li class="list-group-item">
+                        <span>@lab.Title</span> - @lab.Description
+                        @if (ViewBag.ScannedLectures.Contains(lab.Id))
+                        {
+                            <a href="@Url.Action("Index", "ChatRoom", new { chatRoomId = lab.ChatRoomId })" class="btn btn-primary float-right">Join Chat Room</a>
+                        }
+                        else
+                        {
+                            <span class="text-danger ml-3">Please scan in to attend this lab</span>
+                            <form class="d-inline-block" method="post" action="@Url.Action("ScanIn", "Dashboard")">
+                                <input type="hidden" name="studentId" value="@ViewBag.StudentId" />
+                                <input type="hidden" name="sessionId" value="@lab.Id" />
+                                <button type="submit" class="btn btn-danger ml-2">Scan In</button>
+                            </form>
+                        }
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+﻿@model ChatRoom
+
+<h2>@Model.Name</h2>
+
+<div>
+    @foreach (var message in Model.Messages)
+    {
+        <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+            <p>@message.Content</p>
+            <small>Posted by @message.SenderName - @message.Timestamp.ToString("g")</small>
+            <br />
+            <button onclick="upvoteMessage(@message.Id)">Upvote (@message.Upvotes)</button>
+            <!-- Add reply functionality here -->
+        </div>
+    }
+</div>
+
+<script>
+    function upvoteMessage(messageId) {
+        // Implement logic to send upvote request (e.g., using AJAX)
+        alert("Upvoted message ID " + messageId);
+    }
+</script>

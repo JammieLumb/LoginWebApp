@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Lecturer Dashboard - Hull Engage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col">
+            <h2>Welcome, Lecturer!</h2>
+            <p class="lead">You are assigned as a lecturer.</p>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col">
+            <h3>Lectures:</h3>
+            <ul class="list-group">
+                @foreach (var lecture in ViewBag.Lectures)
+                {
+                    <li class="list-group-item">
+                        <span>@lecture.Title</span> - @lecture.Description
+                        <a href="@Url.Action("Index", "ChatRoom", new { chatRoomId = lecture.ChatRoomId })" class="btn btn-primary float-right">Join Chat Room</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col">
+            <h3>Labs:</h3>
+            <ul class="list-group">
+                @foreach (var lab in ViewBag.Labs)
+                {
+                    <li class="list-group-item">
+                        <span>@lab.Title</span> - @lab.Description
+                        <a href="@Url.Action("Index", "ChatRoom", new { chatRoomId = lab.ChatRoomId })" class="btn btn-primary float-right">Join Chat Room</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
